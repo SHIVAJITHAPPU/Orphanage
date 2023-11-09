@@ -66,7 +66,7 @@ class _REQUEST_ALLState extends State<REQUEST_ALL> {
                        btnclr1=!btnclr1;
                      });
                    },
-                  child: Text('Interested'),),
+                  child: Text('PENDING'),),
 
                  SizedBox(width: 15,),
                  ElevatedButton(

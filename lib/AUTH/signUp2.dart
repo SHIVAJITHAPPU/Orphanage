@@ -1,15 +1,32 @@
 import 'package:flutter/material.dart';
+import 'package:http/http.dart';
 import 'package:image_example/AUTH/loginPage.dart';
 
+import '../Connection/connect.dart';
+
 class SignUp2 extends StatefulWidget {
-   SignUp2({super.key,required this.userRole});
+   SignUp2({super.key,
+     required this.userRole,
+     required this.email,
+     required this.pass,
+     required this.username,
+
+   });
   var userRole;
+  var email,pass,username;
 
   @override
   State<SignUp2> createState() => _SignUp2State();
 }
 
 class _SignUp2State extends State<SignUp2> {
+  var name=TextEditingController();
+  var cNo=TextEditingController();
+  var loc=TextEditingController();
+  var about=TextEditingController();
+
+
+
   @override
   Widget build(BuildContext context) {
     return  Scaffold(
@@ -31,6 +48,7 @@ class _SignUp2State extends State<SignUp2> {
                   SizedBox(height: 50,),
                   Text('Name',style: TextStyle(fontSize: 16,fontWeight: FontWeight.w400),),
                   TextFormField(
+                    controller: name,
                     style: TextStyle(color: Colors.black),
                     decoration: InputDecoration( filled: true,
 
@@ -39,6 +57,7 @@ class _SignUp2State extends State<SignUp2> {
                   SizedBox(height: 20,),
                   Text('Contact no',style: TextStyle(fontSize: 16,fontWeight: FontWeight.w400),),
                   TextFormField(
+                    controller: cNo,
                     style: TextStyle(color: Colors.black),
                     decoration: InputDecoration( filled: true,
 
@@ -52,6 +71,7 @@ class _SignUp2State extends State<SignUp2> {
                   SizedBox(height: 25,),
                   Text('Email',style: TextStyle(fontSize: 16,fontWeight: FontWeight.w400),),
                   TextFormField(
+                    controller: about,
                     style: TextStyle(color: Colors.black),
                     decoration: InputDecoration( filled: true,
                       hintStyle: TextStyle(color: Colors.grey, fontSize: 15),
@@ -61,6 +81,7 @@ class _SignUp2State extends State<SignUp2> {
                   SizedBox(height: 20,),
                   Text(' Location',style: TextStyle(fontSize: 16,fontWeight: FontWeight.w400),),
                   TextFormField(
+                    controller: loc,
                     style: TextStyle(color: Colors.black),
                     decoration: InputDecoration( filled: true,
 

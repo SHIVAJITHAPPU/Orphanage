@@ -1,17 +1,65 @@
-import 'package:flutter/material.dart';
+import 'dart:convert';
 
+import 'package:flutter/material.dart';
+import 'package:http/http.dart';
+import '../Connection/connect.dart';
+import '../ORPHANAGE/HOMEBOTTEM/btm_orphanage.dart';
 import 'loginPage.dart';
 
 class SignUp_Orphanage extends StatefulWidget {
-  SignUp_Orphanage({super.key});
+  SignUp_Orphanage({super.key,
+    required this.userRole,
+    required this.email,
+    required this.pass,
+    required this.username,
+
+
+
+  });
 
 var userRole;
+  var email,pass,username;
 
   @override
   State<SignUp_Orphanage> createState() => _SignUp_OrphanageState();
 }
 
 class _SignUp_OrphanageState extends State<SignUp_Orphanage> {
+  var name=TextEditingController();
+  var cNo=TextEditingController();
+  var loc=TextEditingController();
+  var about=TextEditingController();
+  var noOfChildren=TextEditingController();
+  Future<void> sendData() async {
+    var data={
+      'email':widget.email,
+      'username':widget.username,
+      'pass':widget.pass,
+      'name':name.text,
+      'contact':cNo.text,
+      'location':loc.text,
+      'about':about.text,
+      'role':'orphanage',
+
+
+    };
+    print(data);
+    var response=await post(Uri.parse('${Con.url}/register.php'),body: data);
+    print(response.body);
+    print(response.body);
+    if(jsonDecode(response.body)['result']=='success'){
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Registered Successfully')));
+      Navigator.push(context, MaterialPageRoute(builder: (context)=>BTM_Orphanage()));
+    }
+    else
+      {
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Failed to register.....')));
+
+      }
+
+  }
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -37,21 +85,22 @@ class _SignUp_OrphanageState extends State<SignUp_Orphanage> {
             SizedBox(
               height: 10,
             ),
-            Row(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.all(10.0),
-                  child: Container(
-                    color: Colors.grey,
-                    width: 2,
-                    height: 20,
-                  ),
+            Text(
+              "Orphange name",
+              style: TextStyle(
+                  fontSize: 16, color: Colors.black, fontWeight: FontWeight.bold),                ),
+            Padding(
+              padding: const EdgeInsets.all(20),
+              child: TextFormField(
+                controller: name,
+                style: TextStyle(color: Colors.white),
+                decoration: InputDecoration(
+                  filled: true,
+                  fillColor: Color.fromRGBO(200, 200, 200, 1),
+                  hintText: 'Name',
+                  hintStyle: TextStyle(color: Colors.grey, fontSize: 15),
                 ),
-                Text(
-                  "Orphange name",
-                  style: TextStyle(fontSize: 14, color: Colors.grey),
-                ),
-              ],
+              ),
             ),
             SizedBox(
               height: 20,
@@ -64,6 +113,7 @@ class _SignUp_OrphanageState extends State<SignUp_Orphanage> {
             Padding(
               padding: const EdgeInsets.all(20),
               child: TextFormField(
+                controller: about,
                 style: TextStyle(color: Colors.white),
                 decoration: InputDecoration(
                   filled: true,
@@ -113,6 +163,7 @@ class _SignUp_OrphanageState extends State<SignUp_Orphanage> {
                           children: [
                             Text(':'),
                             Expanded(child: TextFormField(
+                              controller: noOfChildren,
                               decoration: InputDecoration(
                                   border: InputBorder.none
                               ),
@@ -145,6 +196,7 @@ class _SignUp_OrphanageState extends State<SignUp_Orphanage> {
                           children: [
                             Text(':'),
                             Expanded(child: TextFormField(
+                              controller: cNo,
                               decoration: InputDecoration(
                                   border: InputBorder.none
                               ),
@@ -155,38 +207,38 @@ class _SignUp_OrphanageState extends State<SignUp_Orphanage> {
                     ),
                   ],
                 ),
-                Row(
-                  children: [
-                    Container(
-                        width: MediaQuery.of(context).size.width*.5,
-                        color: Colors.white,
-                        child: Padding(
-                          padding: const EdgeInsets.only(left: 19),
-                          child: Text(
-                            'Email',
-                            style: TextStyle(
-                                fontSize: 18,
-                                color: Colors.black,
-                                fontWeight: FontWeight.bold),
-                          ),
-                        )),
-                    Container(
-                        width: MediaQuery.of(context).size.width*.5,
-                        color: Colors.white,
-                        child: Row(
-                          children: [
-                            Text(':'),
-                            Expanded(child: TextFormField(
-                              decoration: InputDecoration(
-                                  border: InputBorder.none
-                              ),
-                            )),
-                          ],
-                        )
-
-                    ),
-                  ],
-                ),
+                // Row(
+                //   children: [
+                //     Container(
+                //         width: MediaQuery.of(context).size.width*.5,
+                //         color: Colors.white,
+                //         child: Padding(
+                //           padding: const EdgeInsets.only(left: 19),
+                //           child: Text(
+                //             'Email',
+                //             style: TextStyle(
+                //                 fontSize: 18,
+                //                 color: Colors.black,
+                //                 fontWeight: FontWeight.bold),
+                //           ),
+                //         )),
+                //     Container(
+                //         width: MediaQuery.of(context).size.width*.5,
+                //         color: Colors.white,
+                //         child: Row(
+                //           children: [
+                //             Text(':'),
+                //             Expanded(child: TextFormField(
+                //               decoration: InputDecoration(
+                //                   border: InputBorder.none
+                //               ),
+                //             )),
+                //           ],
+                //         )
+                //
+                //     ),
+                //   ],
+                // ),
                 Row(
                   children: [
                     Container(
@@ -209,6 +261,7 @@ class _SignUp_OrphanageState extends State<SignUp_Orphanage> {
                           children: [
                             Text(':'),
                             Expanded(child: TextFormField(
+                              controller: loc,
                               decoration: InputDecoration(
                                   border: InputBorder.none
                               ),
@@ -393,6 +446,7 @@ class _SignUp_OrphanageState extends State<SignUp_Orphanage> {
 
                   ),
                   onPressed: () {
+
 
                     Navigator.push(context, MaterialPageRoute(builder: (context)=>LoginPage(userRole: widget.userRole,)));
 

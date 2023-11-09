@@ -19,12 +19,12 @@ class _Authority_Home_BarState extends State<Authority_Home_Bar> {
         appBar: AppBar(backgroundColor: Colors.white,foregroundColor: Colors.black,
           title: Text('Requestes'),
           bottom: TabBar(
-            labelColor: Colors.black,
-            indicatorColor: Colors.red,
+            labelColor: Colors.black ,
+            indicatorColor: Colors.yellowAccent,
             tabs: [
               Tab(text: 'Request All '),
-              Tab(text: 'Request Accepeted'),
-              Tab(text: 'Request Rejected'),
+              Tab(text: ' Accepeted'),
+              Tab(text: ' Rejected'),
 
             ],
           ),

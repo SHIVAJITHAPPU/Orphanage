@@ -14,6 +14,12 @@ class SignUp1 extends StatefulWidget {
 }
 
 class _SignUp1State extends State<SignUp1> {
+  var email=TextEditingController();
+  var username=TextEditingController();
+  var password=TextEditingController();
+  var cpassword=TextEditingController();
+
+
   @override
   void initState(){
     super.initState();
@@ -48,6 +54,7 @@ class _SignUp1State extends State<SignUp1> {
                     height: 35,
                   ),
                   TextFormField(
+                    controller: email,
 
                     style: TextStyle(color: Colors.black),
                     decoration: InputDecoration(
@@ -75,6 +82,7 @@ class _SignUp1State extends State<SignUp1> {
                     ],
                   ),
                   TextFormField(
+                    controller: username,
                     style: TextStyle(color: Colors.white),
                     decoration: InputDecoration( filled: true,
                       fillColor: Color.fromRGBO(200, 200, 200, 1),
@@ -96,6 +104,7 @@ class _SignUp1State extends State<SignUp1> {
                     ],
                   ),
                   TextFormField(
+                    controller: password,
                     style: TextStyle(color: Colors.white),
                     decoration: InputDecoration( filled: true,
                       fillColor: Color.fromRGBO(200, 200, 200, 1),
@@ -117,12 +126,13 @@ class _SignUp1State extends State<SignUp1> {
                     ],
                   ),
                   TextFormField(
+                    controller: cpassword,
                     style: TextStyle(color: Colors.white),
                     decoration: InputDecoration( filled: true,
                       fillColor: Color.fromRGBO(200, 200, 200, 1),
                       border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(30)),
-                      hintText: 'Password',
+                      hintText: 'Confirm Password',
                       hintStyle: TextStyle(color: Colors.grey, fontSize: 15),
 
                     ),
@@ -148,13 +158,30 @@ class _SignUp1State extends State<SignUp1> {
 
                         switch(widget.userRole){
                           case 'orphanage':
-                            Navigator.push(context, MaterialPageRoute(builder: (context)=>SignUp_Orphanage()));
+                           print('inside orphange');
+                            Navigator.push(context, MaterialPageRoute(builder: (context)=>SignUp_Orphanage(
+                              userRole: widget.userRole,
+                              email: email, pass: password.text, username: username.text,
+                            )));
                             break;
                           case 'individual':
-                             Navigator.push(context, MaterialPageRoute(builder: (context)=>SignUp2(userRole: widget.userRole)));
+                             Navigator.push(context, MaterialPageRoute(builder: (context)=>SignUp2(
+
+                               userRole: widget.userRole,
+                               email: email,
+                               pass: password,
+                               username: username,
+
+                             )));
                             break;
                           case 'organization':
-                            Navigator.push(context, MaterialPageRoute(builder: (context)=>SignUp2(userRole: widget.userRole)));
+                            Navigator.push(context, MaterialPageRoute(builder: (context)=>SignUp2(
+                                userRole: widget.userRole,
+                              email: email,
+                              pass: password,
+                              username: username,
+
+                            )));
                             break;
                             //  case 'authority':
                             // Navigator.push(context, MaterialPageRoute(builder: (context)=>Authority_Home_Bar()));
